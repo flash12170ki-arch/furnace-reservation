@@ -1149,3 +1149,21 @@ select:disabled {
     grid-template-columns: repeat(10, minmax(0, 1fr));
   }
 }
+/* Arrow position correction */
+@media (max-width: 700px) {
+  .step-row button:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .step-row input,
+  .step-row select {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .step-row button:last-child {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
