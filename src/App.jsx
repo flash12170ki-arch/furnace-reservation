@@ -132,6 +132,26 @@ export default function App() {
     }));
   }
 
+  async function deleteUser(user) {
+    const ok = window.confirm(
+      `登録済み使用者「${user.name}」を削除しますか？\n既存の予約履歴は削除されません。`,
+    );
+    if (!ok) return;
+
+    const { error } = await supabase.from("users").delete().eq("id", user.id);
+    if (error) {
+      showError(`使用者の削除に失敗しました: ${error.message}`);
+      return;
+    }
+
+    setForm((current) => ({
+      ...current,
+      user_names: current.user_names.filter((name) => name !== user.name),
+    }));
+    setConditionUserFilter((current) => (current === user.name ? "全員" : current));
+    await fetchUsers();
+  }
+
   async function registerSample() {
     const trimmed = newSampleName.trim();
     if (!trimmed) return;
@@ -309,6 +329,7 @@ export default function App() {
       <header className="app-header">
         <h1>炉予約表</h1>
         <p>本焼炉・仮焼炉・接合炉の予約管理</p>
+        <p className="update-marker">更新確認: 利用者削除機能を追加済み</p>
       </header>
 
       <nav className="tabs" aria-label="表示切り替え">
@@ -338,6 +359,30 @@ export default function App() {
       {message && <p className="message">{message}</p>}
 
       {activeTab === "reserve" && (
+        <section className="card user-delete-card">
+          <h2>登録済み利用者の削除</h2>
+          <div className="user-delete-list">
+            {users.length === 0 ? (
+              <p>登録済み利用者はまだありません。</p>
+            ) : (
+              users.map((user) => (
+                <div key={user.id} className="user-delete-row">
+                  <span title={user.name}>{user.name}</span>
+                  <button
+                    type="button"
+                    className="danger-button"
+                    onClick={() => deleteUser(user)}
+                  >
+                    削除
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+      )}
+
+      {activeTab === "reserve" && (
         <FurnaceForm
           form={form}
           users={users}
@@ -352,6 +397,7 @@ export default function App() {
           onResetForm={resetForm}
           onRegisterUser={registerUser}
           onRemoveUser={removeUser}
+          onDeleteUser={deleteUser}
           onNewUserNameChange={setNewUserName}
           onRegisterSample={registerSample}
           onNewSampleNameChange={setNewSampleName}

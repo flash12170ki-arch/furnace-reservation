@@ -19,6 +19,7 @@ export default function FurnaceForm({
   onResetForm,
   onRegisterUser,
   onRemoveUser,
+  onDeleteUser,
   onNewUserNameChange,
   onRegisterSample,
   onNewSampleNameChange,
@@ -118,6 +119,7 @@ export default function FurnaceForm({
           onNewUserNameChange={onNewUserNameChange}
           onAddUser={onRegisterUser}
           onRemoveUser={onRemoveUser}
+          onDeleteUser={onDeleteUser}
         />
 
         {form.furnace === "本焼炉" && (
