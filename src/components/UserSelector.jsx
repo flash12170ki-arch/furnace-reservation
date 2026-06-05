@@ -46,20 +46,28 @@ export default function UserSelector({
         ))}
       </div>
 
-      <div className="user-manage-list" aria-label="登録済み使用者管理">
-        {users.map((user) => (
-          <div key={user.id} className="user-manage-row">
-            <span title={user.name}>{user.name}</span>
-            <button
-              type="button"
-              className="danger-button"
-              onClick={() => onDeleteUser(user)}
-            >
-              削除
-            </button>
-          </div>
-        ))}
-      </div>
+      <details className="user-manage-details">
+        <summary>登録済み使用者の削除</summary>
+
+        <div className="user-manage-list" aria-label="登録済み使用者管理">
+          {users.length === 0 ? (
+            <p>登録済み使用者はまだありません。</p>
+          ) : (
+            users.map((user) => (
+              <div key={user.id} className="user-manage-row">
+                <span title={user.name}>{user.name}</span>
+                <button
+                  type="button"
+                  className="danger-button"
+                  onClick={() => onDeleteUser(user)}
+                >
+                  削除
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      </details>
     </div>
   );
 }

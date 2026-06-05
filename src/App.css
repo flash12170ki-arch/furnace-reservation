@@ -375,6 +375,41 @@ select:disabled {
   color: #5d6678;
 }
 
+.user-manage-details {
+  display: grid;
+  gap: 8px;
+}
+
+.user-manage-details summary {
+  list-style: none;
+  border: 1px solid #cfd6e2;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: #172033;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.user-manage-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.user-manage-details summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+.user-manage-details[open] summary::before {
+  content: "▼";
+}
+
+.user-manage-details[open] .user-manage-list {
+  margin-top: 8px;
+}
+
 .user-manage-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

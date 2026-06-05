@@ -8,7 +8,7 @@ export function createInitialForm() {
   return {
     id: null,
     furnace: "本焼炉",
-    start_time: createDefaultDateTime(9),
+    start_time: createDefaultDateTime(12),
     end_time: createDefaultDateTime(12),
     user_names: [],
     memo: "",
