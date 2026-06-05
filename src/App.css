@@ -536,6 +536,11 @@ select:disabled {
   font-weight: 700;
 }
 
+.calendar-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, minmax(132px, 1fr));
@@ -543,6 +548,7 @@ select:disabled {
   margin-top: 0;
   border-top: 1px solid #e1e5ec;
   border-left: 1px solid #e1e5ec;
+  min-width: 920px;
 }
 
 .calendar-day {
@@ -578,6 +584,7 @@ select:disabled {
   border: 1px solid #e1e5ec;
   border-bottom: none;
   background: #f8fafc;
+  min-width: 920px;
 }
 
 .calendar-week span {
@@ -597,6 +604,116 @@ select:disabled {
 .calendar-controls strong {
   min-width: 130px;
   text-align: center;
+}
+
+.calendar-popover-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(23, 32, 51, 0.35);
+}
+
+.calendar-popover {
+  width: min(520px, 100%);
+  max-height: min(760px, 92vh);
+  overflow: auto;
+  display: grid;
+  gap: 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #172033;
+  padding: 18px;
+  box-shadow: 0 24px 70px rgba(20, 35, 61, 0.3);
+}
+
+.calendar-popover-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+}
+
+.calendar-popover-header div {
+  display: grid;
+  gap: 4px;
+}
+
+.calendar-popover-header strong {
+  font-size: 20px;
+}
+
+.calendar-popover-header span {
+  color: #5d6678;
+  overflow-wrap: anywhere;
+}
+
+.calendar-popover-header button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #cfd6e2;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #172033;
+  font-weight: 900;
+}
+
+.calendar-popover-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.calendar-popover-details div {
+  border: 1px solid #e1e5ec;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fbfcfe;
+}
+
+.calendar-popover-details dt {
+  color: #687386;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.calendar-popover-details dd {
+  margin: 3px 0 0;
+  color: #172033;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.calendar-popover-samples {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.calendar-popover-samples span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid #d9e4d9;
+  border-radius: 6px;
+  padding: 6px;
+  background: #edf7ef;
+  color: #183d24;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.calendar-popover-memo {
+  margin: 0;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e1e5ec;
+  padding: 10px;
+  color: #293244;
+  overflow-wrap: anywhere;
 }
 
 .calendar-date {
@@ -758,10 +875,6 @@ select:disabled {
     grid-template-columns: 1fr;
   }
 
-  .calendar {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .sample-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
@@ -817,19 +930,25 @@ select:disabled {
     min-height: 58px;
   }
 
-  .calendar-week {
-    display: none;
-  }
-
   .calendar {
-    border: none;
-    gap: 10px;
+    grid-template-columns: repeat(7, minmax(118px, 1fr));
+    min-width: 826px;
+    border-top: 1px solid #e1e5ec;
+    border-left: 1px solid #e1e5ec;
+    gap: 0;
   }
 
   .calendar-day {
-    border: 1px solid #e1e5ec;
-    border-radius: 8px;
-    min-height: 120px;
+    border-right: 1px solid #e1e5ec;
+    border-bottom: 1px solid #e1e5ec;
+    border-radius: 0;
+    min-height: 112px;
+    padding: 8px;
+  }
+
+  .calendar-week {
+    display: grid;
+    min-width: 826px;
   }
 
   .calendar-controls {
@@ -847,6 +966,25 @@ select:disabled {
 
   .condition-actions {
     grid-template-columns: 1fr;
+  }
+
+  .calendar-popover-backdrop {
+    align-items: end;
+    padding: 10px;
+  }
+
+  .calendar-popover {
+    max-height: 86vh;
+    border-radius: 12px 12px 8px 8px;
+    padding: 14px;
+  }
+
+  .calendar-popover-details {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-popover-samples {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .date-popover {
