@@ -30,6 +30,12 @@ export default function FurnaceForm({
   onSetSampleSlot,
   onCloseSlot,
 }) {
+  function shiftNumber(field, amount, min = 0) {
+    const current = Number(form[field]);
+    const next = Number.isFinite(current) ? current + amount : amount;
+    onUpdateForm({ [field]: Math.max(min, next) });
+  }
+
   function applyCalcineSlot(slot) {
     const base = new Date(form.start_time);
     const start = new Date(base);
@@ -167,22 +173,48 @@ export default function FurnaceForm({
 
             <label>
               温度 ℃
-              <input
-                type="number"
-                step="10"
-                value={form.firing_temperature}
-                onChange={(e) => onUpdateForm({ firing_temperature: e.target.value })}
-              />
+              <div className="step-row">
+                <button
+                  type="button"
+                  onClick={() => shiftNumber("firing_temperature", -10)}
+                >
+                  ▼
+                </button>
+                <input
+                  type="number"
+                  step="10"
+                  value={form.firing_temperature}
+                  onChange={(e) => onUpdateForm({ firing_temperature: e.target.value })}
+                />
+                <button
+                  type="button"
+                  onClick={() => shiftNumber("firing_temperature", 10)}
+                >
+                  ▲
+                </button>
+              </div>
             </label>
 
             <label>
               時間
-              <div className="inline-row">
+              <div className="step-row">
+                <button
+                  type="button"
+                  onClick={() => shiftNumber("firing_time_value", -1)}
+                >
+                  ▼
+                </button>
                 <input
                   type="number"
                   value={form.firing_time_value}
                   onChange={(e) => onUpdateForm({ firing_time_value: e.target.value })}
                 />
+                <button
+                  type="button"
+                  onClick={() => shiftNumber("firing_time_value", 1)}
+                >
+                  ▲
+                </button>
                 <select
                   value={form.firing_time_unit}
                   onChange={(e) => onUpdateForm({ firing_time_unit: e.target.value })}
@@ -208,32 +240,74 @@ export default function FurnaceForm({
                 <div className="two-column">
                   <label>
                     開始温度 ℃
-                    <input
-                      type="number"
-                      step="10"
-                      value={form.anneal_start_temp}
-                      onChange={(e) => onUpdateForm({ anneal_start_temp: e.target.value })}
-                    />
+                    <div className="step-row">
+                      <button
+                        type="button"
+                        onClick={() => shiftNumber("anneal_start_temp", -10)}
+                      >
+                        ▼
+                      </button>
+                      <input
+                        type="number"
+                        step="10"
+                        value={form.anneal_start_temp}
+                        onChange={(e) => onUpdateForm({ anneal_start_temp: e.target.value })}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => shiftNumber("anneal_start_temp", 10)}
+                      >
+                        ▲
+                      </button>
+                    </div>
                   </label>
                   <label>
                     終了温度 ℃
-                    <input
-                      type="number"
-                      step="10"
-                      value={form.anneal_end_temp}
-                      onChange={(e) => onUpdateForm({ anneal_end_temp: e.target.value })}
-                    />
+                    <div className="step-row">
+                      <button
+                        type="button"
+                        onClick={() => shiftNumber("anneal_end_temp", -10)}
+                      >
+                        ▼
+                      </button>
+                      <input
+                        type="number"
+                        step="10"
+                        value={form.anneal_end_temp}
+                        onChange={(e) => onUpdateForm({ anneal_end_temp: e.target.value })}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => shiftNumber("anneal_end_temp", 10)}
+                      >
+                        ▲
+                      </button>
+                    </div>
                   </label>
                 </div>
               ) : (
                 <label>
                   キープ温度 ℃
-                  <input
-                    type="number"
-                    step="10"
-                    value={form.anneal_keep_temp}
-                    onChange={(e) => onUpdateForm({ anneal_keep_temp: e.target.value })}
-                  />
+                  <div className="step-row">
+                    <button
+                      type="button"
+                      onClick={() => shiftNumber("anneal_keep_temp", -10)}
+                    >
+                      ▼
+                    </button>
+                    <input
+                      type="number"
+                      step="10"
+                      value={form.anneal_keep_temp}
+                      onChange={(e) => onUpdateForm({ anneal_keep_temp: e.target.value })}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => shiftNumber("anneal_keep_temp", 10)}
+                    >
+                      ▲
+                    </button>
+                  </div>
                 </label>
               )}
 

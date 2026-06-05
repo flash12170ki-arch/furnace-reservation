@@ -222,6 +222,10 @@ select:disabled {
   flex: 1;
 }
 
+.step-row select {
+  flex: 0 0 92px;
+}
+
 .icon-button {
   width: 42px;
   min-width: 42px;
@@ -790,6 +794,10 @@ select:disabled {
   .section-heading {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .step-row select {
+    flex-basis: auto;
   }
 
   .condition-card dl,
