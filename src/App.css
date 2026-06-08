@@ -262,6 +262,28 @@ select:disabled {
   flex: 0 0 92px;
 }
 
+.firing-time-control {
+  display: grid;
+  gap: 8px;
+}
+
+.firing-time-value {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 56px;
+  gap: 8px;
+}
+
+.firing-time-value input {
+  width: 100%;
+  min-width: 0;
+}
+
+.time-unit-select {
+  min-height: 44px;
+  background: #ffffff;
+  color: #000000;
+}
+
 .date-row input[type="time"],
 .step-row input[type="number"],
 .step-row select {
@@ -988,6 +1010,15 @@ select:disabled {
 
   .step-row select {
     flex-basis: auto;
+  }
+
+  .firing-time-value {
+    grid-template-columns: 56px minmax(0, 1fr) 56px;
+  }
+
+  .time-unit-select {
+    width: 100%;
+    min-height: 48px;
   }
 
   .date-row input[type="time"],

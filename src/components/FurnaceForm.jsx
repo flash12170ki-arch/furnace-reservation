@@ -197,27 +197,32 @@ export default function FurnaceForm({
 
             <label>
               時間
-              <div className="step-row">
-                <button
-                  type="button"
-                  onClick={() => shiftNumber("firing_time_value", -1)}
-                >
-                  ▼
-                </button>
-                <input
-                  type="number"
-                  value={form.firing_time_value}
-                  onChange={(e) => onUpdateForm({ firing_time_value: e.target.value })}
-                />
-                <button
-                  type="button"
-                  onClick={() => shiftNumber("firing_time_value", 1)}
-                >
-                  ▲
-                </button>
+              <div className="firing-time-control">
+                <div className="step-row firing-time-value">
+                  <button
+                    type="button"
+                    onClick={() => shiftNumber("firing_time_value", -1)}
+                  >
+                    ▼
+                  </button>
+                  <input
+                    type="number"
+                    value={form.firing_time_value}
+                    onChange={(e) => onUpdateForm({ firing_time_value: e.target.value })}
+                    aria-label="焼成時間"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => shiftNumber("firing_time_value", 1)}
+                  >
+                    ▲
+                  </button>
+                </div>
                 <select
+                  className="time-unit-select"
                   value={form.firing_time_unit}
                   onChange={(e) => onUpdateForm({ firing_time_unit: e.target.value })}
+                  aria-label="焼成時間の単位"
                 >
                   <option value="h">h</option>
                   <option value="min">min</option>
