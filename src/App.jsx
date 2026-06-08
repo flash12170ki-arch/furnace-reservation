@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CalendarView from "./components/CalendarView";
 import ConditionList from "./components/ConditionList";
 import FurnaceForm from "./components/FurnaceForm";
+import ReservationDetailModal from "./components/ReservationDetailModal";
 import { getFurnaceClass } from "./constants/furnace";
 import { supabase } from "./supabaseClient";
 import { formatDateTime } from "./utils/date";
@@ -25,6 +26,7 @@ export default function App() {
   const [sampleOwnerName, setSampleOwnerName] = useState("");
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [conditionUserFilter, setConditionUserFilter] = useState("全員");
+  const [selectedReservation, setSelectedReservation] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -411,6 +413,14 @@ export default function App() {
             <article
               key={reservation.id}
               className={`reservation-card ${getFurnaceClass(reservation.furnace)}`}
+              role="button"
+              tabIndex="0"
+              onClick={() => setSelectedReservation(reservation)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  setSelectedReservation(reservation);
+                }
+              }}
             >
               <div>
                 <strong>{reservation.furnace}</strong>
@@ -419,13 +429,22 @@ export default function App() {
               </div>
 
               <div className="button-row">
-                <button type="button" onClick={() => editReservation(reservation)}>
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    editReservation(reservation);
+                  }}
+                >
                   編集
                 </button>
                 <button
                   type="button"
                   className="danger-button"
-                  onClick={() => deleteReservation(reservation.id)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    deleteReservation(reservation.id);
+                  }}
                 >
                   削除
                 </button>
@@ -434,6 +453,15 @@ export default function App() {
           ))}
         </div>
       </section>
+
+      <ReservationDetailModal
+        reservation={selectedReservation}
+        onClose={() => setSelectedReservation(null)}
+        onEditReservation={(reservation) => {
+          setSelectedReservation(null);
+          editReservation(reservation);
+        }}
+      />
     </div>
   );
 }

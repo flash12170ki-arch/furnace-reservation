@@ -11,6 +11,18 @@ body {
   color: #172033;
 }
 
+body,
+.app,
+.card,
+.panel,
+.condition-box,
+.calendar-day,
+.reservation-card,
+.condition-card,
+.calendar-popover {
+  color: #172033;
+}
+
 button,
 input,
 select,
@@ -745,6 +757,15 @@ select:disabled {
   overflow-wrap: anywhere;
 }
 
+.calendar-item strong,
+.calendar-item span,
+.reservation-card strong,
+.reservation-card p,
+.condition-card strong,
+.condition-card span {
+  color: #172033;
+}
+
 .calendar-item.main-furnace,
 .reservation-card.main-furnace {
   border-left-color: #2f5fb3;
@@ -862,6 +883,13 @@ select:disabled {
   border-top: 1px solid #e1e5ec;
   border-right: 1px solid #e1e5ec;
   border-bottom: 1px solid #e1e5ec;
+}
+
+.reservation-card:hover,
+.reservation-card:focus {
+  outline: 2px solid #9db7ea;
+  outline-offset: 2px;
+  background: #f7fbff;
 }
 
 .reservation-card p {
