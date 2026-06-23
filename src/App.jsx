@@ -391,6 +391,7 @@ export default function App() {
         <CalendarView
           reservations={reservations}
           onEditReservation={editReservation}
+          onDeleteReservation={deleteReservation}
         />
       )}
 

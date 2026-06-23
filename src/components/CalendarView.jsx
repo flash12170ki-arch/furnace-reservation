@@ -9,7 +9,11 @@ import {
   toDateInputValue,
 } from "../utils/date";
 
-export default function CalendarView({ reservations, onEditReservation }) {
+export default function CalendarView({
+  reservations,
+  onEditReservation,
+  onDeleteReservation,
+}) {
   const [viewDate, setViewDate] = useState(() => new Date());
   const [selectedReservation, setSelectedReservation] = useState(null);
   const days = useMemo(() => getMonthDays(viewDate), [viewDate]);
@@ -162,13 +166,26 @@ export default function CalendarView({ reservations, onEditReservation }) {
               <p className="calendar-popover-memo">{selectedReservation.memo}</p>
             )}
 
-            <button
-              type="button"
-              className="primary-button"
-              onClick={() => onEditReservation(selectedReservation)}
-            >
-              編集
-            </button>
+            <div className="calendar-popover-actions">
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => onEditReservation(selectedReservation)}
+              >
+                編集
+              </button>
+              <button
+                type="button"
+                className="danger-button"
+                onClick={async () => {
+                  const reservation = selectedReservation;
+                  setSelectedReservation(null);
+                  await onDeleteReservation(reservation.id);
+                }}
+              >
+                予約削除
+              </button>
+            </div>
           </article>
         </div>
       )}

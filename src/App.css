@@ -785,6 +785,12 @@ select:disabled {
   overflow-wrap: anywhere;
 }
 
+.calendar-popover-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 .calendar-date {
   color: #293244;
   font-weight: 900;
@@ -1099,6 +1105,10 @@ select:disabled {
 
   .calendar-popover-samples {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .calendar-popover-actions {
+    grid-template-columns: 1fr;
   }
 
   .date-popover {
