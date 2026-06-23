@@ -626,6 +626,14 @@ select:disabled {
   border-right: 1px solid #e1e5ec;
   border-bottom: 1px solid #e1e5ec;
   padding: 10px;
+  cursor: pointer;
+}
+
+.calendar-day:hover,
+.calendar-day:focus {
+  outline: 2px solid #9db7ea;
+  outline-offset: -2px;
+  background: #f7fbff;
 }
 
 .calendar-day[data-muted="true"] {

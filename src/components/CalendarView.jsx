@@ -13,6 +13,7 @@ export default function CalendarView({
   reservations,
   onEditReservation,
   onDeleteReservation,
+  onCreateReservationOnDate,
 }) {
   const [viewDate, setViewDate] = useState(() => new Date());
   const [selectedReservation, setSelectedReservation] = useState(null);
@@ -74,6 +75,14 @@ export default function CalendarView({
                 className="calendar-day"
                 data-muted={!isCurrentMonth}
                 data-today={isToday}
+                role="button"
+                tabIndex="0"
+                onClick={() => onCreateReservationOnDate(day)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    onCreateReservationOnDate(day);
+                  }
+                }}
               >
                 <div className="calendar-date">{day.getDate()}</div>
 
@@ -82,8 +91,11 @@ export default function CalendarView({
                     <button
                       key={reservation.id}
                       type="button"
-                      className={`calendar-item ${getFurnaceClass(reservation.furnace)}`}
-                      onClick={() => setSelectedReservation(reservation)}
+                    className={`calendar-item ${getFurnaceClass(reservation.furnace)}`}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setSelectedReservation(reservation);
+                      }}
                     >
                       <strong>{reservation.furnace}</strong>
                       <span className="calendar-user">{reservation.user_name}</span>

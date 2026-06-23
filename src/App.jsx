@@ -5,7 +5,7 @@ import FurnaceForm from "./components/FurnaceForm";
 import ReservationDetailModal from "./components/ReservationDetailModal";
 import { getFurnaceClass } from "./constants/furnace";
 import { supabase } from "./supabaseClient";
-import { formatDateTime } from "./utils/date";
+import { combineDateAndTime, formatDateTime, toDateInputValue } from "./utils/date";
 import {
   createInitialForm,
   createReservationPayload,
@@ -313,6 +313,18 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  function createReservationOnDate(day) {
+    const dateText = toDateInputValue(day);
+    updateForm({
+      id: null,
+      start_time: combineDateAndTime(dateText, "12:00"),
+      end_time: combineDateAndTime(dateText, "13:00"),
+    });
+    setSelectedSlot(null);
+    setActiveTab("reserve");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   async function deleteReservation(id) {
     const ok = window.confirm("この予約を削除しますか？");
     if (!ok) return;
@@ -392,6 +404,7 @@ export default function App() {
           reservations={reservations}
           onEditReservation={editReservation}
           onDeleteReservation={deleteReservation}
+          onCreateReservationOnDate={createReservationOnDate}
         />
       )}
 
